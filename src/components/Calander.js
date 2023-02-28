@@ -28,6 +28,7 @@ export default function Calander() {
                 <Calendar onChange={onClick} value={date} />
                 {show ? <CalanderSchd/> : null } 
                 <div className='test2'>
+                
                 {/* <div className='time-schd pb-5'>
                             <div className='gray-sch sch-tab'>
                                 <span>09:00 - 10:00</span>

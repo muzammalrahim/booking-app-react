@@ -10,6 +10,7 @@ export default function CalanderSchd() {
 
 const [showText, setShowText] = useState(false);
 const onClick = () => setShowText(true);
+const [active, setActive] = useState(null);
     
 const times = [
   {
@@ -56,14 +57,15 @@ const [show, setShow] = useState(false);
                             {
                                 times.map((data)=>
                             {
+                                
                                 if (data.is_active === true){
+                                    
 
                                     return(
 
-                                        <div className='black-sch sch-tab' onClick={onClick}>
+                                        <div className='black-sch sch-tab' onClick={() => setActive(data)}>
                                             
-                                            <span>{data.slot_time}</span>
-                                            {showText ? <BookAppointment/> : null}
+                                            <span className={`list-item ${active == data && "active"}`}>{data.slot_time}</span>
                                         </div>
                                     )
                                 }

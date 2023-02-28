@@ -8,6 +8,37 @@ import Modal from 'react-bootstrap/Modal';
 // const [showText, setShowText] = useState(false);
 
  function BookAppointment(props) {
+  const [showText, setShowText] = useState(false);
+const onClick = () => setShowText(true);
+    
+const times = [
+  {
+    slot_time: "10:00 11:00",
+    is_active: false,
+  },
+  {
+    slot_time: "11:00 12:00",
+    is_active: false,
+  },
+  {
+    slot_time: "12:00 13:00",
+    is_active: false,
+  },  
+  {
+    slot_time: "10:00 11:00",
+    is_active: true,
+  },
+  {
+    slot_time: "11:00 12:00",
+    is_active: true,
+  },
+  {
+    slot_time: "12:00 13:00",
+    is_active: true,
+  }   
+]
+
+const [show, setShow] = useState(false);
   
   
   return (
