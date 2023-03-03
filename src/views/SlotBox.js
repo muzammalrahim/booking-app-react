@@ -36,6 +36,12 @@ const SlotBox = (props) => {
   };
 
   useEffect(() => {
+    if (!selected) {
+      setState(false);
+    }
+  }, [selected]);
+
+  useEffect(() => {
     setState(false);
     console.log("SLOTBOX CLG");
   }, [selectedDateContext]);

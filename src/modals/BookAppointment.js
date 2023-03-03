@@ -35,7 +35,7 @@ export default function BookAppointment(props) {
     // });
     // setSelectedSlots(tempSelected);
     // console.log(selectedSlots);
-  }, []);
+  }, [props]);
 
   const [showText, setShowText] = useState(false);
   const onClick = () => setShowText(true);

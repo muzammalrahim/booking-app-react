@@ -7,10 +7,8 @@ import { SelectedDateContext } from "../services/SelectedDate.context";
 import { useState } from "react";
 import Calendar from "react-calendar";
 import { Link } from "react-router-dom";
-
 import EclipseBG from "../assets/images/eclipse-bottom.png";
 import Header from "./Header";
-
 export default function Calander() {
   const { selectedDateContext, setSelectedDateContext } =
     useContext(SelectedDateContext);
@@ -72,8 +70,6 @@ export default function Calander() {
   //   console.log(dayOfWeek);
 
   useEffect(() => {
-    const isoString = new Date(date).toISOString();
-    setTempTS(new Intl.DateTimeFormat("en-US").format(date));
     // console.log("TEMP TS");
     // console.log(tempTS);
     // console.log("Calender Date");
@@ -85,7 +81,7 @@ export default function Calander() {
   useEffect(() => {
     // console.log(show);
     // setShow(true);
-    console.log(show);
+    // console.log(show);
     const dayOfWeek = date.toLocaleDateString("en-US", { weekday: "long" });
     const temp = date.toISOString();
     setSelectedDate(temp);
@@ -130,7 +126,12 @@ export default function Calander() {
   const setDateHandler = (date) => {
     setShow(true);
     setDate(date);
-    setSelectedDateContext(date);
+
+    const isoString = new Date(date).toISOString();
+    setTempTS(new Intl.DateTimeFormat("en-US").format(date));
+    setSelectedDateContext(tempTS);
+    console.log(selectedDateContext);
+    // setSelectedDateContext(date);
   };
   useEffect(() => {
     if (businessInfo) console.log(businessInfo);
