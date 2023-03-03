@@ -1,17 +1,23 @@
-import React, { useEffect } from "react";
-import Time from "../components/Time";
-import CalanderSchd from "../views/CalanderSchd";
-import { useContext } from "react";
-import { BusinessInfoContext } from "../services/BusinessInfo.context";
-import { SelectedDateContext } from "../services/SelectedDate.context";
-import { useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
+
+// liberaries
 import Calendar from "react-calendar";
 import { Link } from "react-router-dom";
 
-import EclipseBG from "../assets/images/eclipse-bottom.png";
-import Header from "./Header";
+// Local Imports
+import CalanderSchd from "../views/CalanderSchd";
+import WeeklyCalander from "../modals/WeeklyCalander";
+import ConfirmCode from  "../modals/ConfirmCode"
+import { BusinessInfoContext } from "../services/BusinessInfo.context";
+import { SelectedDateContext } from "../services/SelectedDate.context";
+
+
 
 export default function Calander() {
+// confirm modal
+const [modalShow, setModalShow] = React.useState(false);
+
+
   const { selectedDateContext, setSelectedDateContext } =
     useContext(SelectedDateContext);
   const { businessInfo, setBusinessInfo } = useContext(BusinessInfoContext);
@@ -142,7 +148,6 @@ export default function Calander() {
         <div className='calendar-container'>
           {/* {console.log(selectedDate)} */}
           <Calendar onChange={(val) => setDateHandler(val)} value={date} />
-
           {show ? (
             <CalanderSchd
               timeSlots={selectedTimeSlot}
@@ -155,37 +160,6 @@ export default function Calander() {
             selDate={tempTS}
             locationId={locationId}
           /> */}
-          <div className='test2'>
-            {/* <div className='time-schd pb-5'>
-                            <div className='gray-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='gray-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='gray-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='slected-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='black-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='black-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='black-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='black-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='gray-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                          </div> */}
-          </div>
         </div>
 
         {/* <p className='text-center'> */}
@@ -204,9 +178,21 @@ export default function Calander() {
             </p>
 
             <div className='btn-div'>
-              <Link to='/cal-shd'>
-                <button className='main-btn'>Change booking</button>
-              </Link>
+              <span className="modal-btn">
+                  <ConfirmCode
+                      show={modalShow}
+                      onHide={() => setModalShow(false)}
+                    />
+                </span>
+              {/* <Link to='/cal-shd'>
+                <button className='main-btn'>
+                  <ConfirmCode
+                      show={modalShow}
+                      onHide={() => setModalShow(false)}
+                    />
+                  Change booking
+                </button>
+              </Link> */}
             </div>
           </div>
         </div>
