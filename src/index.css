@@ -1,66 +1,65 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-
-body{
-  font-family: 'Rubik', sans-serif !important;
+body {
+  font-family: "Rubik", sans-serif !important;
   overflow-x: hidden !important;
 }
 
 /* Heading */
-h1{
+h1 {
   font-weight: 600;
   font-size: 80px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
-h2{
+h2 {
   font-size: 48px;
   color: #000000;
 }
 h3 {
   font-weight: 600;
   font-size: 40px;
-  color: #5BC0CC;
+  color: #5bc0cc;
 }
-h5{
+h5 {
   font-size: 14px;
   margin: 0 !important;
 }
 
 /* ============Buttons Start========== */
-.main-btn{
+.main-btn {
   padding: 16px 40px;
   width: 223px;
   height: 57px;
-  background: #5BC0CC;
+  background: #5bc0cc;
   border-radius: 12px;
   border: none;
-  color: #FFFFFF;
+  color: #ffffff;
 }
-.main-btn:hover{
-  background: #FFFFFF;
-  border: 1px solid #5BC0CC;
-  color: #5BC0CC;
+.main-btn:hover {
+  background: #ffffff;
+  border: 1px solid #5bc0cc;
+  color: #5bc0cc;
 }
-.outline-btn{
+.outline-btn {
   padding: 16px 40px;
   width: 223px;
   height: 57px;
-  border: 1px solid #B1CCDA !important;
+  border: 1px solid #b1ccda !important;
   border-radius: 12px;
   border: none;
-  color: #1E1E1E;
+  color: #1e1e1e;
   background: transparent !important;
 }
-.outline-btn:hover{
-  background: #FFFFFF !important;
+.outline-btn:hover {
+  background: #ffffff !important;
 }
 /* ============Buttons End========== */
 
-.logo{
+.logo {
   width: 25%;
 }
 /* Hero Section */
-.hero-img{
+.hero-img {
   background: url(../src/assets/images/hero-img.png) no-repeat;
   height: 400px;
   background-size: cover;
@@ -77,38 +76,45 @@ h5{
 .row.head-row {
   align-items: center;
 }
-.eclipse-bg{
+.eclipse-bg {
   /* margin: -100px 0 0 0;
   z-index: -1;
   position: relative; */
   position: absolute;
   top: 355px;
-    z-index: -1;
+  z-index: -1;
 }
-.cal-bottom-bg{
+.cal-bottom-bg {
   position: absolute;
   bottom: 0;
   z-index: -1;
   right: 0;
 }
-.bottom-bg{
+.bottom-bg {
   background: url(../src/assets/images/eclipse-bg.png) no-repeat;
   /* height: 200px; */
   background-size: 20%;
   background-position: bottom right;
 }
-.bot-para{
+.bot-para {
   font-size: 18px;
   color: #000000;
   padding: 5px 0 30px 0;
   width: 50%;
   margin: 0 auto;
 }
-.pos-area{
+.pos-area {
   position: relative;
 }
-.bottom-div{
+.bottom-div {
   margin: 0 0 100px 0;
+}
+
+.showPlans {
+  display: block;
+}
+.hidePlans {
+  display: none;
 }
 
 /* =====================schedule div start================ */
@@ -122,62 +128,61 @@ h5{
   width: 40% !important;
 }
 
-.sch-tab{
+.sch-tab {
   width: 100px;
   height: 38px;
   display: flex;
-  border-radius: 8px ;
+  border-radius: 8px;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 }
-.sch-tab span{
+.sch-tab span {
   font-size: 12px;
   color: rgba(60, 60, 67, 0.3);
 }
-.gray-sch{
+.gray-sch {
   border: 1px solid rgba(60, 60, 67, 0.3);
-  border-radius: 8px 
+  border-radius: 8px;
 }
-.gray-sch span{
+.gray-sch span {
   color: rgba(60, 60, 67, 0.3);
 }
-.black-sch:hover{
-  background: #5BC0CC;
-  border: #5BC0CC;
+.black-sch:hover {
+  background: #5bc0cc;
+  border: #5bc0cc;
 }
-.black-sch:hover span{
-  color: #FFFFFF;
+.black-sch:hover span {
+  color: #ffffff;
 }
 
-.black-sch{
+.black-sch {
   border: 1px solid #000000;
 }
-.black-sch span{
+.black-sch span {
   color: #000000;
 }
 .slected-sch {
-  background: #5BC0CC;
+  background: #5bc0cc;
 }
-.slected-sch span{
-  color: #FFFFFF;
+.slected-sch span {
+  color: #ffffff;
 }
 
 /* =====================schedule div end================ */
 
-
 /* =================Price Div================== */
-.price-div{
+.price-div {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
   width: 40% !important;
 }
-.price-div h2{
+.price-div h2 {
   margin: 0 !important;
 }
-.price-div span{
+.price-div span {
   font-size: 14px;
   color: rgba(0, 0, 0, 0.6);
   position: relative;
@@ -185,10 +190,9 @@ h5{
   left: -7px;
 }
 
-
 /* ===============Book Appoitment Modal Start=================== */
-.appt-modal .modal-content{
-  background: linear-gradient(0deg, #F5F8F9, #F5F8F9), #FFFFFF !important;
+.appt-modal .modal-content {
+  background: linear-gradient(0deg, #f5f8f9, #f5f8f9), #ffffff !important;
   padding: 20px 50px !important;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.18);
   border-radius: 24px !important;
@@ -197,42 +201,41 @@ h5{
   border: none;
   padding-bottom: 0 !important;
 }
-.cal-date-div{
-  background: #FFFFFF;
+.cal-date-div {
+  background: #ffffff;
   padding: 10px 20px;
 }
-.modal-para{
+.modal-para {
   font-size: 14px;
   font-weight: 500;
   color: #000000;
   margin: 0;
 }
-.des-para{
+.des-para {
   font-size: 14px;
   font-weight: 400;
   color: #000000;
   margin: 0;
 }
-.staric{
-  color: #E70000;
+.staric {
+  color: #e70000;
   font-size: 18px;
 }
-.btn-close{
+.btn-close {
   font-size: 14px;
-  color: #0D0D0D !important;
+  color: #0d0d0d !important;
 }
 /* ===============Book Appoitment Modal End=================== */
 
-
 /* =============== Appoitment Done Modal Start=================== */
-.done-appt .modal-content{
+.done-appt .modal-content {
   justify-content: center;
   align-items: center;
 }
-.done-appt .modal-body{
+.done-appt .modal-body {
   text-align: center;
 }
-.modal-gray-text{
+.modal-gray-text {
   font-weight: 400;
   font-size: 14px;
   color: rgba(30, 30, 30, 0.7);
@@ -240,46 +243,43 @@ h5{
 }
 /* =============== Appoitment Done Modal End=================== */
 
-
 /* ====================Form Styling Strat =============== */
-.form-inline-div{
+.form-inline-div {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-.form-main label{
+.form-main label {
   font-size: 14px;
   color: #000000;
-  
 }
-.label-dark{
+.label-dark {
   font-weight: 500;
 }
-.label-light{
+.label-light {
   font-weight: 400;
 }
-.form-main input{
+.form-main input {
   height: 52px;
   border-radius: 12px;
   border: none !important;
 }
-.form-main input::placeholder{
+.form-main input::placeholder {
   letter-spacing: 0.01em;
   color: rgba(30, 30, 30, 0.6);
   font-size: 12px;
 }
-.form-main .main-btn{
+.form-main .main-btn {
   width: 100%;
 }
-.form-main .outline-btn{
+.form-main .outline-btn {
   width: 100%;
 }
 /* ====================Form Styling End =============== */
 
-
 /* ====================Calander Settings Start=================== */
 
-.react-calendar{
+.react-calendar {
   margin: 0 auto;
   width: 45% !important;
   border: none !important;
@@ -290,22 +290,22 @@ span.react-calendar__navigation__label__labelText.react-calendar__navigation__la
   text-transform: uppercase;
   color: #000000;
 }
-.react-calendar__month-view__weekdays__weekday abbr{
+.react-calendar__month-view__weekdays__weekday abbr {
   font-size: 14px;
   text-transform: uppercase;
   color: rgba(60, 60, 67, 0.3);
 }
-.react-calendar__tile{
+.react-calendar__tile {
   font-weight: 400;
   font-size: 18px;
   color: #000000;
-  font-family: 'Rubik', sans-serif !important;
+  font-family: "Rubik", sans-serif !important;
 }
-.react-calendar__tile{
+.react-calendar__tile {
   line-height: 25px !important;
 }
-.react-calendar__tile--active{
-  background: #5BC0CC !important;
+.react-calendar__tile--active {
+  background: #5bc0cc !important;
   color: white !important;
 }
 .react-calendar__month-view__days__day--weekend {
@@ -316,13 +316,14 @@ span.react-calendar__navigation__label__labelText.react-calendar__navigation__la
 .react-calendar__tile--now {
   background: rgba(91, 192, 204, 0.24) !important;
 }
-.react-calendar__tile:enabled:hover, .react-calendar__tile:enabled:focus {
-  background-color: #5BC0CC !important;
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background-color: #5bc0cc !important;
 }
-button.react-calendar__navigation__arrow.react-calendar__navigation__prev2-button{
+button.react-calendar__navigation__arrow.react-calendar__navigation__prev2-button {
   display: none;
 }
-button.react-calendar__navigation__arrow.react-calendar__navigation__next2-button{
+button.react-calendar__navigation__arrow.react-calendar__navigation__next2-button {
   display: none;
 }
 button.react-calendar__tile.react-calendar__month-view__days__day {
@@ -333,15 +334,13 @@ button.react-calendar__tile.react-calendar__month-view__days__day {
   gap: 20px;
 }
 
-
 /* ====================Calander Settings End=================== */
 
-
 @media screen and (max-width: 768px) {
-  .bottom-bg{
+  .bottom-bg {
     background: none;
   }
-  .eclipse-bg{
+  .eclipse-bg {
     display: none;
   }
   .react-calendar {
@@ -354,7 +353,6 @@ button.react-calendar__tile.react-calendar__month-view__days__day {
   .price-div {
     width: 80% !important;
   }
-
 }
 
 @media screen and (max-width: 425px) {
@@ -367,19 +365,21 @@ button.react-calendar__tile.react-calendar__month-view__days__day {
   .time-schd {
     width: 100% !important;
   }
-  .price-div span{
+  .price-div span {
     position: unset;
   }
   span.react-calendar__navigation__label__labelText.react-calendar__navigation__label__labelText--from {
     font-size: 18px;
   }
-  .react-calendar__tile{
+  .react-calendar__tile {
     font-size: 14px;
   }
-  .react-calendar__month-view__days__day--weekend{
+  .react-calendar__month-view__days__day--weekend {
     font-size: 14px;
   }
   /* .price-div {
     width: 100% !important;
   } */
+  button.react-calendar__tile.react-calendar__month-view__days__day {
+  }
 }
