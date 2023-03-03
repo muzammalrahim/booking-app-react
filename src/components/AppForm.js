@@ -40,11 +40,14 @@ export default function AppForm() {
     const startEpoch =
       startTime.seconds() + startTime.minutes() * 60 + startTime.hours() * 3600;
     setStartSec(startEpoch);
+    startSecVar = startEpoch;
     const endTimeString = timeStringContext.end;
     const endTime = moment(endTimeString, "hh:mm:ss A");
     const endEpoch =
       endTime.seconds() + endTime.minutes() * 60 + endTime.hours() * 3600;
     setEndSec(endEpoch);
+    endSecVar = endEpoch;
+
     console.log("Start Epoch" + startEpoch + "End Epoch: " + endEpoch);
   };
 
@@ -76,9 +79,10 @@ export default function AppForm() {
       businessId: "mAqm6LjvFLUvMOU4pylE5qHcgPH3", // Hard Coded for Now
       locationId: businessInfo.business.LocationId,
       courtId: 1,
+
       date: formattedString,
-      startTime: startSec,
-      endTime: endSec,
+      startTime: startSecVar,
+      endTime: endSecVar,
       duration: businessInfo.location.duration,
       paymentAmount: businessInfo.location.rent,
       paymentCurrency: businessInfo.business.currency,

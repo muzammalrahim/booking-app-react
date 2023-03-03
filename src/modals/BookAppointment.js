@@ -25,8 +25,9 @@ export default function BookAppointment(props) {
     setSelectedSlots(props.props.slots);
     console.log(props.props);
     console.log(businessInfo);
-    console.log(selectedSlots);
-    setTimeStringContext(selectedSlots[0]);
+    console.log("Selected Slots in book Appointment Modal");
+    console.log(props.props.slots);
+    setTimeStringContext(props.props.slots[0]);
     console.log(timeStringContext);
     // handleSlots();
     // const tempSelected = props?.props?.slots.filter((obj) => {
@@ -34,7 +35,7 @@ export default function BookAppointment(props) {
     // });
     // setSelectedSlots(tempSelected);
     // console.log(selectedSlots);
-  }, [props]);
+  }, []);
 
   const [showText, setShowText] = useState(false);
   const onClick = () => setShowText(true);
