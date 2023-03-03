@@ -12,7 +12,8 @@ export default function AppForm() {
   const [payloadDate, setPayloadDate] = useState();
   const { selectedDateContext, setSelectedDateContext } =
     useContext(SelectedDateContext);
-
+  var startSecVar = "";
+  var endSecVar = "";
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
