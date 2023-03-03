@@ -12,11 +12,34 @@ const SlotBox = (props) => {
   const { selectedSlots, setselectedSlots } = useContext(SelectedSlotsContext);
   // const [selectedDateContext] = useContext(SelectedDateContext);
   const { click, slot: data, selected, selDate: date } = props;
+  const startTime = data.start;
+  const startDate = new Date("2000-01-01 " + startTime); // Use an arbitrary date to create the Date object
+  const startTimeString = startDate.toLocaleTimeString("en-US", {
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+  }); // Convert to 24-hour format
+
+  const endTime = data.end;
+  const endDate = new Date("2000-01-01 " + endTime); // Use an arbitrary date to create the Date object
+  const endTimeString = endDate.toLocaleTimeString("en-US", {
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+  }); // Convert to 24-hour format
+
+  // console.log(formattedTime); // Output: "20:00:00"
   const [state, setState] = useState(false);
   const handleClick = (data) => {
     setState(!state);
     click(data);
   };
+
+  useEffect(() => {
+    if (!selected) {
+      setState(false);
+    }
+  }, [selected]);
 
   useEffect(() => {
     setState(false);
@@ -33,7 +56,7 @@ const SlotBox = (props) => {
         //   active == data && "active"
         // }`}
         >
-          {data.start} - {data.end}
+          {startTimeString} - {endTimeString}
         </span>
       </div>
     </>
