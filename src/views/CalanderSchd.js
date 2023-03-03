@@ -26,6 +26,7 @@ export default function CalanderSchd(props) {
   const API_URL = process.env.REACT_APP_PUBLIC_URL;
   const getData = async (date) => {
     // console.log(locationId);
+    console.log("GET DATA Calender Schd");
     axios
       .post(API_URL + "reservation/getExistingReservationsForDate", {
         locationId: locationId,
@@ -84,7 +85,6 @@ export default function CalanderSchd(props) {
       return obj.selected === true;
     });
     setSelectedArr(tempArr);
-    console.log(selectedArr.length);
     const hrs = (selectedArr.length * 90) / 60;
     setHours(hrs);
   };
@@ -100,7 +100,6 @@ export default function CalanderSchd(props) {
 
   function convertMinutesToHHMM() {
     let minutes = businessInfo.location.duration;
-    console.log(minutes);
     let hours = Math.floor(minutes / 60);
     let mins = minutes % 60;
     hours = hours < 10 ? `0${hours}` : hours;
