@@ -345,11 +345,11 @@ export default function CalanderSchd(props) {
                       <button className='main-btn'>Next</button>
                     </span>
                     {/* UNCOMMENT THIS BLOCK */}
-                    {/* <BookAppointment
+                    <BookAppointment
                       show={modalShow}
                       props={{ date: selDate, slots: selectedArr }}
                       onHide={() => setModalShow(false)}
-                    /> */}
+                    />
                     <div className='mt-2'>
                       {/* <button className='main-btn'> <AppointmentDone/></button> */}
                       <br />
