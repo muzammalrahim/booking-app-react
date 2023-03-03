@@ -1,88 +1,148 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useContext } from "react";
+import { BusinessInfoContext } from "../services/BusinessInfo.context";
+import axios from "axios";
+import BookAppointment from "../modals/BookAppointment";
+import AppointmentDone from "../modals/AppointmentDone";
+import AppointmentCancel from "../modals/AppointmentCancel";
+import moment from "moment";
+import SlotBox from "./SlotBox";
+import { SelectedSlotsContext } from "../services/SelectedSlots.Context";
 
+export default function CalanderSchd(props) {
+  const { businessInfo, setBusinessInfo } = useContext(BusinessInfoContext);
+  const { timeSlots, selDate, locationId } = props;
+  const { selectedSlots, setselectedSlots } = useContext(SelectedSlotsContext);
+  const [hours, setHours] = useState(0);
+  const [modalShow, setModalShow] = React.useState(false);
+  const [timesArr, setTimesArr] = useState({});
+  const [selectedArr, setSelectedArr] = useState({});
+  const [date, setDate] = useState();
+  const [showText, setShowText] = useState(false);
+  const onClick = () => setShowText(true);
+  const [active, setActive] = useState(null);
+  const [availibity, setAvailibity] = useState();
 
-import BookAppointment from "../modals/BookAppointment"
-import AppointmentDone from "../modals/AppointmentDone"
-import AppointmentCancel from "../modals/AppointmentCancel"
+  const API_URL = process.env.REACT_APP_PUBLIC_URL;
+  const getData = async (date) => {
+    // console.log(locationId);
+    axios
+      .post(API_URL + "reservation/getExistingReservationsForDate", {
+        locationId: locationId,
+        date: date,
+      })
+      .then((response) => {
+        setAvailibity(response.data);
+        createSlots(timeSlots);
+        // console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+        console.log(error.message);
+        return error.message;
+      });
+  };
 
+  function createSlots(startTimes) {
+    const slots = [];
+    const closedArr = availibity.closedCourts.map((obj) => {
+      return Number(obj);
+    });
+    for (let i = 0; i < startTimes.length; i++) {
+      const closed = closedArr.includes(i + 1);
+      const startTime = startTimes[i];
+      const endTime = new Date(
+        new Date(`01/01/2000 ${startTime}`).getTime() + 90 * 60000
+      ).toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+      slots.push({
+        start: startTime,
+        end: endTime,
+        closed: closed,
+        is_active: true,
+        selected: false,
+      });
+      setTimesArr(slots);
+    }
 
-export default function CalanderSchd() {
+    return slots;
+  }
+  const setActiveHandler = (data) => {
+    let temp = timesArr;
+    const index = timesArr.indexOf(data);
+    let tempObj = data;
+    tempObj.selected = !tempObj.selected;
+    temp[index] = tempObj;
+    setTimesArr(temp);
+  };
+  const handleSelectedSlots = () => {
+    const tempArr = timesArr.filter((obj) => {
+      return obj.selected === true;
+    });
+    setSelectedArr(tempArr);
+    console.log(selectedArr.length);
+    const hrs = (selectedArr.length * 90) / 60;
+    setHours(hrs);
+  };
+  useEffect(() => {
+    const momentObj = moment.utc(selDate, "M/D/YYYY");
+    const isoString = momentObj.toISOString();
+    const formattedString = momentObj.format("YYYY-MM-DDTHH:mm:ssZ");
+    setDate(formattedString);
+    getData(formattedString);
+  }, [selDate]);
 
-const [showText, setShowText] = useState(false);
-const onClick = () => setShowText(true);
-const [active, setActive] = useState(null);
-    
-const times = [
-  {
-    slot_time: "10:00 11:00",
-    is_active: false,
-  },
-  {
-    slot_time: "11:00 12:00",
-    is_active: false,
-  },
-  {
-    slot_time: "12:00 13:00",
-    is_active: false,
-  },  
-  {
-    slot_time: "10:00 11:00",
-    is_active: true,
-  },
-  {
-    slot_time: "11:00 12:00",
-    is_active: true,
-  },
-  {
-    slot_time: "12:00 13:00",
-    is_active: true,
-  }   
-]
+  const [show, setShow] = useState(false);
 
-const [show, setShow] = useState(false);
-
-  return (
-    <div className='cal-view-main'>
+  function convertMinutesToHHMM() {
+    let minutes = businessInfo.location.duration;
+    console.log(minutes);
+    let hours = Math.floor(minutes / 60);
+    let mins = minutes % 60;
+    hours = hours < 10 ? `0${hours}` : hours;
+    mins = mins < 10 ? `0${mins}` : mins;
+    return `${hours}:${mins}`;
+  }
+  if (businessInfo) {
+    return (
+      <div className='cal-view-main'>
         <div className='cal-inner'>
-            <div className='container'>
-                {/* -----------Calander Start--------- */}
-                <div className='pt-3 pos-area'>
-                  <div className='container'>
-                      {/* <div className='calendar-container'>
-                          <Calendar onChange={setDate} value={date} />
-                      </div> */}
-                      <div className='bottom-div pt-4'>
-                          {/* -----------Time Schedule div---------- */}
-                          <div className='time-schd pb-5'>
-                            {
-                                times.map((data)=>
-                            {
-                                
-                                if (data.is_active === true){
-                                    
+          <div className='container'>
+            {/* -----------Calander Start--------- */}
+            <div className='pt-3 pos-area'>
+              <div className='container'>
+                <div className='bottom-div pt-4'>
+                  {/* -----------Time Schedule div---------- */}
+                  <div className='time-schd pb-5'>
+                    {timesArr.length > 0
+                      ? timesArr.map((data) => {
+                          if (data.is_active === true) {
+                            return (
+                              <SlotBox
+                                // classes={classes}
+                                click={() => setActiveHandler(data)}
+                                slot={data}
+                                date={selDate}
+                                selected={data.selected}
+                              ></SlotBox>
+                            );
+                          } else {
+                            return (
+                              <div className='gray-sch sch-tab'>
+                                <span>
+                                  {data.start} - {data.end}
+                                </span>
+                              </div>
+                            );
+                          }
+                        })
+                      : null}
 
-                                    return(
-
-                                        <div className='black-sch sch-tab' onClick={() => setActive(data)}>
-                                            
-                                            <span className={`list-item ${active == data && "active"}`}>{data.slot_time}</span>
-                                        </div>
-                                    )
-                                }
-                                else
-                                {
-                                    return(
-                                    <div className='gray-sch sch-tab'>
-                                        <span>{data.slot_time}</span>
-                                    </div>
-                                    )
-                                }
-                            }
-                                
-                                )
-                            }
-                            
-                            {/* <div className='gray-sch sch-tab'>
+                    {/* <div className='gray-sch sch-tab'>
                                 <span>09:00 - 10:00</span>
                             </div>
                             <div className='slected-sch sch-tab'>
@@ -103,47 +163,57 @@ const [show, setShow] = useState(false);
                             <div className='gray-sch sch-tab'>
                                 <span>09:00 - 10:00</span>
                             </div> */}
-                          </div>
-                          {/* ----------Time Schedule div-------- */}
-
-                          {/* ------------Price Div----------- */}
-                          <div className='price-div pb-5'>
-                              <div>
-                                <h2>Price</h2>
-                                <span>For 1 hour</span>
-                              </div>
-
-                              <div>
-                                <h2>€ 220</h2>
-                              </div>
-                            </div>
-                          {/* ------------Price Div----------- */}
-
-                          <div className='btn-div'>
-                          
-                              {/* <Link to="/cal-shd"> */}
-                                  <button className='main-btn'> <BookAppointment/></button>
-                                  <div className='mt-2'>
-                                    {/* <button className='main-btn'> <AppointmentDone/></button> */}
-                                    <br/>
-                                    {/* <button className='main-btn mt-2'> <AppointmentCancel/></button> */}
-                                    
-                                  </div>
-                              {/* </Link> */}
-                              
-                              
-                          </div>
-                      </div>
                   </div>
-                 
+                  {/* ----------Time Schedule div-------- */}
+
+                  {/* ------------Price Div----------- */}
+                  <div className='price-div pb-5'>
+                    <div>
+                      <h2>Price</h2>
+                      <span>For {convertMinutesToHHMM()} hour</span>
+                    </div>
+
+                    <div>
+                      <h2>
+                        {businessInfo.business.currency}{" "}
+                        {businessInfo.location.rent}
+                      </h2>
+                    </div>
+                  </div>
+                  {/* ------------Price Div----------- */}
+
+                  <div className='btn-div'>
+                    {/* <Link to="/cal-shd"> */}
+                    <span
+                      onClick={() => {
+                        handleSelectedSlots();
+                        console.log(selectedArr);
+                        setModalShow(true);
+                      }}
+                    >
+                      <button className='main-btn'>Next</button>
+                    </span>
+                    <BookAppointment
+                      show={modalShow}
+                      props={{ date: selDate, slots: selectedArr }}
+                      onHide={() => setModalShow(false)}
+                    />
+                    <div className='mt-2'>
+                      {/* <button className='main-btn'> <AppointmentDone/></button> */}
+                      <br />
+                      {/* <button className='main-btn mt-2'> <AppointmentCancel/></button> */}
+                    </div>
+                    {/* </Link> */}
+                  </div>
+                </div>
               </div>
-              {/* -----------Calander End--------- */}
             </div>
-
-            
+            {/* -----------Calander End--------- */}
+          </div>
         </div>
-        
-    </div>
-  )
+      </div>
+    );
+  } else {
+    return <>Loading data</>;
+  }
 }
-
