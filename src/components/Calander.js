@@ -13,6 +13,8 @@ import { SelectedDateContext } from "../services/SelectedDate.context";
 
 
 
+import EclipseBG from "../assets/images/eclipse-bottom.png";
+import Header from "./Header";
 export default function Calander() {
 // confirm modal
 const [modalShow, setModalShow] = React.useState(false);
@@ -78,8 +80,6 @@ const [modalShow, setModalShow] = React.useState(false);
   //   console.log(dayOfWeek);
 
   useEffect(() => {
-    const isoString = new Date(date).toISOString();
-    setTempTS(new Intl.DateTimeFormat("en-US").format(date));
     // console.log("TEMP TS");
     // console.log(tempTS);
     // console.log("Calender Date");
@@ -91,7 +91,7 @@ const [modalShow, setModalShow] = React.useState(false);
   useEffect(() => {
     // console.log(show);
     // setShow(true);
-    console.log(show);
+    // console.log(show);
     const dayOfWeek = date.toLocaleDateString("en-US", { weekday: "long" });
     const temp = date.toISOString();
     setSelectedDate(temp);
@@ -136,7 +136,12 @@ const [modalShow, setModalShow] = React.useState(false);
   const setDateHandler = (date) => {
     setShow(true);
     setDate(date);
-    setSelectedDateContext(date);
+
+    const isoString = new Date(date).toISOString();
+    setTempTS(new Intl.DateTimeFormat("en-US").format(date));
+    setSelectedDateContext(tempTS);
+    console.log(selectedDateContext);
+    // setSelectedDateContext(date);
   };
   useEffect(() => {
     if (businessInfo) console.log(businessInfo);
