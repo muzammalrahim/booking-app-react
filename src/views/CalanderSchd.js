@@ -80,7 +80,8 @@ export default function CalanderSchd(props) {
   const [showText, setShowText] = useState(false);
   const onClick = () => setShowText(true);
   const [active, setActive] = useState(null);
-  const [availibity, setAvailibity] = useState();
+  // const [availibity, setAvailibity] = useState();
+  var availibity;
 
   const API_URL = process.env.REACT_APP_PUBLIC_URL;
   const getData = async (date) => {
@@ -102,7 +103,8 @@ export default function CalanderSchd(props) {
     if (res.status === 422 || !data) {
       console.log("Fetch Failed");
     } else if (res.status === 200) {
-      setAvailibity(data);
+      // setAvailibity(data);
+      availibity = data;
       // console.log("THENN");
       console.log(data);
       createSlots(timeSlots);
