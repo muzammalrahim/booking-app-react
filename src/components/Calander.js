@@ -1,25 +1,30 @@
 import React, { useEffect, useContext, useState } from "react";
+import { ModalContext } from "../services/Modals.Context";
+import BookingChanged from "../modals/BookingChanged";
 
-// liberaries
+// libraries
 import Calendar from "react-calendar";
 import { Link } from "react-router-dom";
+import EditBooking from "../modals/EditBooking";
+import ConfirmCancelled from "../modals/ConfirmCancelled";
+import BookingNotCancelled from "../modals/BookingNotCancelled";
 
 // Local Imports
 import CalanderSchd from "../views/CalanderSchd";
 import WeeklyCalander from "../modals/WeeklyCalander";
-import ConfirmCode from  "../modals/ConfirmCode"
+import ConfirmCode from "../modals/ConfirmCode";
+import ConfirmChoices from "../modals/ConfirmChoices";
+
 import { BusinessInfoContext } from "../services/BusinessInfo.context";
 import { SelectedDateContext } from "../services/SelectedDate.context";
-
-
 
 import EclipseBG from "../assets/images/eclipse-bottom.png";
 import Header from "./Header";
 export default function Calander() {
-// confirm modal
-const [modalShow, setModalShow] = React.useState(false);
-
-
+  // confirm modal
+  const { modalState, dispatch } = useContext(ModalContext);
+  const [confirmCodeShow, setConfirmCodeShow] = React.useState(false);
+  console.log(modalState.confirmCodeBool);
   const { selectedDateContext, setSelectedDateContext } =
     useContext(SelectedDateContext);
   const { businessInfo, setBusinessInfo } = useContext(BusinessInfoContext);
@@ -183,12 +188,48 @@ const [modalShow, setModalShow] = React.useState(false);
             </p>
 
             <div className='btn-div'>
-              <span className="modal-btn">
-                  <ConfirmCode
-                      show={modalShow}
-                      onHide={() => setModalShow(false)}
-                    />
+              <span className='modal-btn'>
+                <span
+                  className='main-btn'
+                  onClick={() => {
+                    // props.closeModal();
+                    // setModalShow(true);
+                    dispatch({ type: "show confirmCode" });
+                  }}
+                >
+                  Change booking
                 </span>
+
+                <ConfirmCode
+                  // show={modalShow}
+                  show={modalState.confirmCodeBool}
+                  onHide={() => dispatch({ type: "hide confirmCode" })}
+                />
+              </span>
+              <ConfirmChoices
+                // show={modalShow}
+                show={modalState.confirmChoicesBool}
+                onHide={() => dispatch({ type: "hide confirmChoices" })}
+              />
+
+              <EditBooking
+                show={modalState.editBookingBool}
+                onHide={() => dispatch({ type: "hide editBooking" })}
+              />
+              <ConfirmCancelled
+                show={modalState.confirmCancelledBool}
+                onHide={() => dispatch({ type: "hide confirmCancelled" })}
+              />
+              <BookingChanged
+                show={modalState.bookingChangedBool}
+                onHide={() => dispatch({ type: "hide bookingChanged" })}
+              />
+
+              <BookingNotCancelled
+                show={modalState.bookingNotCancelledBool}
+                onHide={() => dispatch({ type: "hide bookingNotCancelled" })}
+              />
+
               {/* <Link to='/cal-shd'>
                 <button className='main-btn'>
                   <ConfirmCode

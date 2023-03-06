@@ -50,7 +50,7 @@ h5 {
   color: #1e1e1e;
   background: transparent !important;
 }
-.no-btn{
+.no-btn {
   width: 50px !important;
   display: flex;
   justify-content: center;
@@ -67,22 +67,22 @@ h5 {
   gap: 10px;
 }
 
-.red-btn{
+.red-btn {
   padding: 16px 40px;
   width: 223px;
   height: 57px;
-  border: 1px solid #B1CCDA !important;
+  border: 1px solid #b1ccda !important;
   border-radius: 12px;
   border: none;
-  color: #EA0F0F;
+  color: #ea0f0f;
   background: transparent;
 }
-.red-btn:hover{
+.red-btn:hover {
   background: #5bc0cc;
   border: 1px solid #5bc0cc;
   color: #ffffff;
 }
-.modal-btn{
+.modal-btn {
   cursor: pointer;
 }
 /* ============Buttons End========== */
@@ -182,7 +182,7 @@ h5 {
   color: rgba(60, 60, 67, 0.3);
 }
 .gray-sch-fill {
-  background: linear-gradient(0deg, #F5F8F9, #F5F8F9), #FFFFFF;
+  background: linear-gradient(0deg, #f5f8f9, #f5f8f9), #ffffff;
   /* border: 1px solid rgba(60, 60, 67, 0.3); */
   border-radius: 8px;
 }
@@ -235,11 +235,11 @@ h5 {
   gap: 10px;
   justify-content: center;
 }
-.confirm-block{
+.confirm-block {
   width: 54px;
   height: 54px;
-  background: #FFFFFF;
-  border: 1px solid #5BC0CC;
+  background: #ffffff;
+  border: 1px solid #5bc0cc;
   border-radius: 12px;
   display: flex;
   justify-content: center;
@@ -248,19 +248,19 @@ h5 {
 /* ==================Confrim Modal End================== */
 
 /* ==================Horizonatl Calander Modal Start=================== */
-.hor-calander{
+.hor-calander {
   width: 35% !important;
   margin: 0 auto;
 }
-.DatePicker_container__KBpvy{
+.DatePicker_container {
   width: 40% !important;
   margin: 0 auto;
 }
-.DatePicker_monthYearLabel__sIYVv{
+.DatePicker_monthYearLabel__sIYVv {
   left: 45% !important;
   color: #000000 !important;
 }
-.DatePicker_dayLabel__HTXT-{
+.DatePicker_dayLabel__HTXT- {
   color: rgba(60, 60, 67, 0.3) !important;
   font-size: 16px !important;
   font-weight: 400 !important;
@@ -268,33 +268,32 @@ h5 {
 .DatePicker_buttonWrapper__X9M6G {
   align-items: flex-start !important;
 }
-.DatePicker_button__NfbbX{
+.DatePicker_button__NfbbX {
   background: transparent !important;
-  color: #1E1E1E !important;
+  color: #1e1e1e !important;
 }
 .DatePicker_monthContainer__8BPsP {
   gap: 25px !important;
 }
-.DatePicker_daysContainer__TkS5s{
+.DatePicker_daysContainer__TkS5s {
   /* margin-left: 0 !important; */
   gap: 5px;
 }
-.DatePicker_dateDayItem__0uY0C:hover{
-  background: #5BC0CC !important;
+.DatePicker_dateDayItem__0uY0C:hover {
+  background: #5bc0cc !important;
   border-radius: 40px;
 }
-.DatePicker_dateDayItem__0uY0C:hover .DatePicker_dayLabel__HTXT-{
+.DatePicker_dateDayItem__0uY0C:hover .DatePicker_dayLabel__HTXT- {
   color: #ffffff !important;
 }
-.DatePicker_dateDayItem__0uY0C:hover .DatePicker_dateLabel__Un4\+n{
+.DatePicker_dateDayItem__0uY0C:hover .DatePicker_dateLabel__Un4\+n {
   color: #ffffff !important;
 }
-.DatePicker_dateDayItem__0uY0C{
+.DatePicker_dateDayItem__0uY0C {
   height: auto !important;
   gap: 10px;
 }
 /* ==================Horizonatl Calander Modal End=================== */
-
 
 /* ==================Book Appoitment Modal Start=================== */
 .appt-modal .modal-content {
@@ -333,16 +332,15 @@ h5 {
 }
 /* ===============Book Appoitment Modal End=================== */
 
-
 /* ===============Edit Appoitment Modal Start=================== */
-.time-schd.time-sch-popup{
+.time-schd.time-sch-popup {
   width: 100% !important;
 }
 /* ===============Edit Appoitment Modal End=================== *
 
 
 /* =============== Appoitment Done Modal Start=================== */
-.modal-content{
+.modal-content {
   border: none !important;
 }
 .done-appt .modal-content {
