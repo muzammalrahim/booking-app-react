@@ -252,46 +252,12 @@ h5 {
   width: 35% !important;
   margin: 0 auto;
 }
-.DatePicker_container__KBpvy{
-  width: 40% !important;
-  margin: 0 auto;
-}
-.DatePicker_monthYearLabel__sIYVv{
+.hor-calander #container span{
   left: 45% !important;
   color: #000000 !important;
 }
-.DatePicker_dayLabel__HTXT-{
-  color: rgba(60, 60, 67, 0.3) !important;
-  font-size: 16px !important;
-  font-weight: 400 !important;
-}
-.DatePicker_buttonWrapper__X9M6G {
-  align-items: flex-start !important;
-}
-.DatePicker_button__NfbbX{
-  background: transparent !important;
-  color: #1E1E1E !important;
-}
-.DatePicker_monthContainer__8BPsP {
-  gap: 25px !important;
-}
-.DatePicker_daysContainer__TkS5s{
-  /* margin-left: 0 !important; */
-  gap: 5px;
-}
-.DatePicker_dateDayItem__0uY0C:hover{
-  background: #5BC0CC !important;
-  border-radius: 40px;
-}
-.DatePicker_dateDayItem__0uY0C:hover .DatePicker_dayLabel__HTXT-{
-  color: #ffffff !important;
-}
-.DatePicker_dateDayItem__0uY0C:hover .DatePicker_dateLabel__Un4\+n{
-  color: #ffffff !important;
-}
-.DatePicker_dateDayItem__0uY0C{
-  height: auto !important;
-  gap: 10px;
+.DatePicker_dateDayItem {
+  gap: 10px  !important;
 }
 /* ==================Horizonatl Calander Modal End=================== */
 

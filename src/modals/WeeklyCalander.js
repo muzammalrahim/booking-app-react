@@ -10,7 +10,9 @@ export default function WeeklyCalander() {
     
     <div className='hor-calander'>
         
-        <DatePicker />
+        <DatePicker 
+        color={"#5BC0CC"}
+        />
     </div>
   )
 }

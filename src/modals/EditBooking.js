@@ -32,7 +32,8 @@ import CheckTick from "../assets/images/circle-check-bg.png";
             <h2 className='modal-para'>
             Edit booking
             </h2>
-          <WeeklyCalander/>
+            <div className='hor-calander'><WeeklyCalander/></div>
+          
           {/* <img className='' src={CheckTick} alt="search" /> */}
         </Modal.Title>
       </Modal.Header>
