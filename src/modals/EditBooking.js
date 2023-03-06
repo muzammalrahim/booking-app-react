@@ -32,7 +32,7 @@ import CheckTick from "../assets/images/circle-check-bg.png";
             <h2 className='modal-para'>
             Edit booking
             </h2>
-          {/* <WeeklyCalander/> */}
+          <WeeklyCalander/>
           {/* <img className='' src={CheckTick} alt="search" /> */}
         </Modal.Title>
       </Modal.Header>
@@ -80,12 +80,11 @@ import CheckTick from "../assets/images/circle-check-bg.png";
                 <button className='outline-btn'>Cancel</button>
             </div>
             <div>
-            <button className='outline-btn'>Confirm</button>
                 <span className="modal-btn">
-                    {/* <BookingChanged
+                    <BookingChanged
                         show={modalShow}
                         onHide={() => setModalShow(false)}
-                    /> */}
+                    />
                 </span>
             </div>
         </div>
