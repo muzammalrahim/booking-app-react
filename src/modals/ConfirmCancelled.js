@@ -42,7 +42,14 @@ function ConfirmCancelled(props) {
 
           <div className='parallel-btns mb-3'>
             <div>
-              <span className='outline-btn no-btn'>No</span>
+              <span
+                className='outline-btn no-btn'
+                onClick={() => {
+                  dispatch({ type: "hide confirmCancelled" });
+                }}
+              >
+                No
+              </span>
             </div>
 
             <div>
