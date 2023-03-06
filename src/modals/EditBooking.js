@@ -71,7 +71,14 @@ export default function EditBooking(props) {
 
           <div className='parallel-btns mt-4 mb-3'>
             <div>
-              <button className='outline-btn'>Cancel</button>
+              <button
+                className='outline-btn'
+                onClick={() => {
+                  dispatch({ type: "hide editBooking" });
+                }}
+              >
+                Cancel
+              </button>
             </div>
             <div>
               <span className='modal-btn'>

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ModalContext } from "../services/Modals.Context";
 
 import Modal from "react-bootstrap/Modal";
 
 import CheckTick from "../assets/images/cancel.png";
 
 function BookingNotCancelled(props) {
+  const { modalState, dispatch } = useContext(ModalContext);
   return (
     <div className='done-appt'>
       <Modal
@@ -25,7 +27,14 @@ function BookingNotCancelled(props) {
             <p className='modal-para'>cannot be canceled</p>
           </div>
 
-          <button className='main-btn'> Done</button>
+          <button
+            className='main-btn'
+            onClick={() => {
+              dispatch({ type: "hide bookingNotCancelled" });
+            }}
+          >
+            Done
+          </button>
         </Modal.Body>
         {/* <button onClick={props.onHide} className='outline-btn mt-2'>
             Cancel
