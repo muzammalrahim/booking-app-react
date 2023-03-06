@@ -46,6 +46,7 @@ function ConfirmCancelled(props) {
                 className='outline-btn no-btn'
                 onClick={() => {
                   dispatch({ type: "hide confirmCancelled" });
+                  dispatch({ type: "show confirmChoices" });
                 }}
               >
                 No
