@@ -99,7 +99,7 @@ export default function AppForm() {
 
   return (
     <Form onSubmit={handleBooking} className='form-main'>
-      <Form.Group className='mb-3' controlId='formBasicEmail'>
+      <Form.Group className='mb-3'>
         <div className='form-inline-div'>
           <div>
             <Form.Label className='label-dark'>First name</Form.Label>
@@ -122,7 +122,7 @@ export default function AppForm() {
         </div>
       </Form.Group>
 
-      <Form.Group className='mb-3' controlId='formBasicEmail'>
+      <Form.Group className='mb-3'>
         <div className='form-inline-div'>
           <div>
             <Form.Label className='label-dark'>Email</Form.Label>
@@ -135,7 +135,7 @@ export default function AppForm() {
           </div>
           <div>
             <Form.Label className='label-dark'>Phone</Form.Label>
-            <Form.Control type='email' placeholder='Enter phone number' />
+            <Form.Control type='text' placeholder='Enter phone number' />
           </div>
         </div>
       </Form.Group>
