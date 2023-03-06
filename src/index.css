@@ -280,10 +280,14 @@ h5 {
   gap: 5px;
 }
 .DatePicker_dateDayItem__0uY0C:hover{
-  background: red !important;
+  background: #5BC0CC !important;
+  border-radius: 40px;
 }
-.DatePicker_dateDayItem__0uY0C:hover{
-  background: red !important;
+.DatePicker_dateDayItem__0uY0C:hover .DatePicker_dayLabel__HTXT-{
+  color: #ffffff !important;
+}
+.DatePicker_dateDayItem__0uY0C:hover .DatePicker_dateLabel__Un4\+n{
+  color: #ffffff !important;
 }
 .DatePicker_dateDayItem__0uY0C{
   height: auto !important;
