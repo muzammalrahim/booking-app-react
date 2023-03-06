@@ -135,7 +135,7 @@ export default function AppForm() {
           </div>
           <div>
             <Form.Label className='label-dark'>Phone</Form.Label>
-            <Form.Control type='email' placeholder='Enter phone number' />
+            <Form.Control type='text' placeholder='Enter phone number' />
           </div>
         </div>
       </Form.Group>
