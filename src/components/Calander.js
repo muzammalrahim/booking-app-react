@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { ModalContext } from "../services/Modals.Context";
 import BookingChanged from "../modals/BookingChanged";
+import axios from "axios";
 
 // libraries
 import Calendar from "react-calendar";
@@ -34,19 +35,7 @@ export default function Calander() {
   const [selectedDate, setSelectedDate] = useState("");
   const [tempTS, setTempTS] = useState(date); //temp timeStamp to test
   const locationId = businessInfo?.business?.LocationId;
-  //   console.log(locationId);
-  // const onClick = () => setShow(!show);
-  //   console.log(businessInfo.timeSlots);
-
-  //   const timeSlots = {
-  //     1: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-  //     2: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-  //     3: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-  //     4: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-  //     5: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-  //     6: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-  //     7: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-  //   };
+  const API_URL = process.env.REACT_APP_PUBLIC_URL;
 
   const timeSlots = businessInfo?.timeSlots
     ? businessInfo.timeSlots
@@ -75,24 +64,21 @@ export default function Calander() {
     humanReadableTimeSlots[weekday] = timeStrings;
   });
 
-  //   console.log(humanReadableTimeSlots);
-  //   const onClick = () => {
-  //     setShow((prevState) => !show && !prevState);
-  //   };
-  //   const dayOfWeek = date.toLocaleDateString();
-  //   const temp = date.toISOString();
-  //   setSelectedDate(temp);
-  //   console.log(dayOfWeek);
-
-  useEffect(() => {
-    // console.log("TEMP TS");
-    // console.log(tempTS);
-    // console.log("Calender Date");
-    // console.log(date);
-    // console.log(tempTS.toLocaleString());
-    // setTempTS(updatedDateString);
-  }, [date]);
-
+  const sendOTP = async () => {
+    axios
+      .post(API_URL + "reservation/sendOTPtoEmail", {
+        email: "saqibsdesk@gmail.com", // change email here
+      })
+      .then((response) => {
+        console.log(response.status);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+        console.log(error.message);
+        return error.message;
+      });
+  };
   useEffect(() => {
     // console.log(show);
     // setShow(true);
@@ -194,6 +180,7 @@ export default function Calander() {
                   onClick={() => {
                     // props.closeModal();
                     // setModalShow(true);
+                    // sendOTP();
                     dispatch({ type: "show confirmCode" });
                   }}
                 >

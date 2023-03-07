@@ -245,6 +245,22 @@ h5 {
   justify-content: center;
   align-items: center;
 }
+.confirm-block input::placeholder {
+  /* Firefox, Chrome, Opera */
+  text-align: center;
+}
+
+.confirm-block input {
+  width: 54px;
+  height: 54px;
+  background: #ffffff;
+  border: 1px solid #5bc0cc;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 /* ==================Confrim Modal End================== */
 
 /* ==================Horizonatl Calander Modal Start=================== */
