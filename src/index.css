@@ -248,50 +248,18 @@ h5 {
 /* ==================Confrim Modal End================== */
 
 /* ==================Horizonatl Calander Modal Start=================== */
-.hor-calander {
-  width: 35% !important;
-  margin: 0 auto;
+.weekly-calander .react-calendar{
+  width: unset !important;
 }
-.DatePicker_container {
-  width: 40% !important;
-  margin: 0 auto;
+.weekly-calander span.react-calendar__navigation__label__labelText.react-calendar__navigation__label__labelText--from{
+  font-size: 18px !important;
+  font-weight: 600 !important;
 }
-.DatePicker_monthYearLabel__sIYVv {
-  left: 45% !important;
-  color: #000000 !important;
-}
-.DatePicker_dayLabel__HTXT- {
-  color: rgba(60, 60, 67, 0.3) !important;
-  font-size: 16px !important;
-  font-weight: 400 !important;
-}
-.DatePicker_buttonWrapper__X9M6G {
-  align-items: flex-start !important;
-}
-.DatePicker_button__NfbbX {
-  background: transparent !important;
-  color: #1e1e1e !important;
-}
-.DatePicker_monthContainer__8BPsP {
-  gap: 25px !important;
-}
-.DatePicker_daysContainer__TkS5s {
-  /* margin-left: 0 !important; */
-  gap: 5px;
-}
-.DatePicker_dateDayItem__0uY0C:hover {
-  background: #5bc0cc !important;
-  border-radius: 40px;
-}
-.DatePicker_dateDayItem__0uY0C:hover .DatePicker_dayLabel__HTXT- {
-  color: #ffffff !important;
-}
-.DatePicker_dateDayItem__0uY0C:hover .DatePicker_dateLabel__Un4\+n {
-  color: #ffffff !important;
-}
-.DatePicker_dateDayItem__0uY0C {
-  height: auto !important;
-  gap: 10px;
+.modal-para-edit {
+  font-weight: 600;
+  font-size: 16px;
+  color: #1E1E1E;
+  text-align: center;
 }
 /* ==================Horizonatl Calander Modal End=================== */
 
@@ -446,9 +414,11 @@ button.react-calendar__tile.react-calendar__month-view__days__day {
   border-radius: 25px;
 }
 .react-calendar__month-view__days {
-  gap: 20px;
+  gap: 25px;
 }
-
+.react-calendar__month-view__days{
+  justify-content: space-between !important;
+}
 /* ====================Calander Settings End=================== */
 
 @media screen and (max-width: 768px) {

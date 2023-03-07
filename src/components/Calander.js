@@ -4,7 +4,6 @@ import BookingChanged from "../modals/BookingChanged";
 
 // libraries
 import Calendar from "react-calendar";
-import { Link } from "react-router-dom";
 import EditBooking from "../modals/EditBooking";
 import ConfirmCancelled from "../modals/ConfirmCancelled";
 import BookingNotCancelled from "../modals/BookingNotCancelled";
