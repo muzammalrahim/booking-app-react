@@ -26,7 +26,7 @@ export default function EditBooking(props) {
       >
         <Modal.Header className='book-app'>
           <Modal.Title id='contained-modal-title-vcenter'>
-            <h2 className='modal-para'>Edit booking</h2>
+            <h2 className='modal-para-edit'>Edit booking</h2>
             <WeeklyCalander />
             {/* <img className='' src={CheckTick} alt="search" /> */}
           </Modal.Title>
