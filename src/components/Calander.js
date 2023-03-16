@@ -14,7 +14,7 @@ import CalanderSchd from "../views/CalanderSchd";
 import WeeklyCalander from "../modals/WeeklyCalander";
 import ConfirmCode from "../modals/ConfirmCode";
 import ConfirmChoices from "../modals/ConfirmChoices";
-
+import BookingDeleted from "../modals/BookingDeleted";
 import { BusinessInfoContext } from "../services/BusinessInfo.context";
 import { SelectedDateContext } from "../services/SelectedDate.context";
 
@@ -24,119 +24,62 @@ export default function Calander() {
   // confirm modal
   const { modalState, dispatch } = useContext(ModalContext);
   const [confirmCodeShow, setConfirmCodeShow] = React.useState(false);
-  console.log(modalState.confirmCodeBool);
+  // console.log(modalState.confirmCodeBool);
   const { selectedDateContext, setSelectedDateContext } =
     useContext(SelectedDateContext);
-  const { businessInfo, setBusinessInfo } = useContext(BusinessInfoContext);
+  const { businessInfo, setBusinessInfo, settestSlots } =
+    useContext(BusinessInfoContext);
   const [date, setDate] = useState(new Date());
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState([]);
   const [show, setShow] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [tempTS, setTempTS] = useState(date); //temp timeStamp to test
   const locationId = businessInfo?.business?.LocationId;
   const API_URL = process.env.REACT_APP_PUBLIC_URL;
+  const [isLoading, setIsLoading] = useState(true);
 
-  const timeSlots = businessInfo?.timeSlots
-    ? businessInfo.timeSlots
-    : {
-        1: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-        2: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-        3: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-        4: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-        5: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-        6: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-        7: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
-      };
-  const weekdays = Object.keys(timeSlots);
+  // ? businessInfo.timeSlots
+  // : {
+  //     1: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
+  //     2: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
+  //     3: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
+  //     4: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
+  //     5: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
+  //     6: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
+  //     7: "[-32400,-27000,-21600,-16200,-10800,-5400,0]",
+  //   };
 
-  const humanReadableTimeSlots = {};
-
-  weekdays.forEach((weekday) => {
-    const timestamps = JSON.parse(timeSlots[weekday]);
-
-    const dateObjects = timestamps.map(
-      (timestamp) => new Date(timestamp * 1000)
-    );
-
-    const timeStrings = dateObjects.map((date) => date.toLocaleTimeString());
-
-    humanReadableTimeSlots[weekday] = timeStrings;
-  });
-
-  const sendOTP = async () => {
-    axios
-      .post(API_URL + "reservation/sendOTPtoEmail", {
-        email: "saqibsdesk@gmail.com", // change email here
-      })
-      .then((response) => {
-        console.log(response.status);
-        return response.data;
-      })
-      .catch((error) => {
-        console.log(error.response.status);
-        console.log(error.message);
-        return error.message;
-      });
-  };
   useEffect(() => {
-    // console.log(show);
-    // setShow(true);
-    // console.log(show);
-    const dayOfWeek = date.toLocaleDateString("en-US", { weekday: "long" });
-    const temp = date.toISOString();
-    setSelectedDate(temp);
-    // console.log(tempTS);
-    // console.log(dayOfWeek);
-    switch (dayOfWeek) {
-      case "Sunday": {
-        setSelectedTimeSlot(humanReadableTimeSlots[1]);
-        break;
-      }
-      case "Monday": {
-        setSelectedTimeSlot(humanReadableTimeSlots[2]);
-        break;
-      }
-      case "Tuesday": {
-        setSelectedTimeSlot(humanReadableTimeSlots[3]);
-        break;
-      }
-      case "Wednesday": {
-        setSelectedTimeSlot(humanReadableTimeSlots[4]);
-        break;
-      }
-      case "Thursday": {
-        setSelectedTimeSlot(humanReadableTimeSlots[5]);
-        break;
-      }
-      case "Friday": {
-        setSelectedTimeSlot(humanReadableTimeSlots[6]);
-        break;
-      }
-      case "Saturday": {
-        setSelectedTimeSlot(humanReadableTimeSlots[7]);
-        break;
-      }
-      default:
-        break;
-      // code block
+    if (businessInfo.timeSlots) {
+      // console.log(businessInfo);
+      // render();
+      setIsLoading(false);
     }
-    // console.log(date.getDay());
-  }, [date]);
+  }, [businessInfo, date]);
 
   const setDateHandler = (date) => {
+    // console.log("date from date handler", date);
     setShow(true);
     setDate(date);
 
     const isoString = new Date(date).toISOString();
     setTempTS(new Intl.DateTimeFormat("en-US").format(date));
-    setSelectedDateContext(tempTS);
+    const dateVar = new Date(date);
+    const month = dateVar.getMonth() + 1;
+    const day = dateVar.getDate();
+    const year = dateVar.getFullYear();
+    const formattedDate = `${month}/${day}/${year}`;
+    console.log(formattedDate);
+    setSelectedDateContext(formattedDate);
     console.log(selectedDateContext);
+    console.log(date);
     // setSelectedDateContext(date);
   };
-  useEffect(() => {
-    if (businessInfo) console.log(businessInfo);
-  }, [businessInfo]);
-
+  // useEffect(() => {
+  //   if (businessInfo) console.log(businessInfo);
+  // }, [businessInfo]);
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
   return (
     <div className='pt-3 pos-area'>
       <div className='container'>
@@ -145,7 +88,7 @@ export default function Calander() {
           <Calendar onChange={(val) => setDateHandler(val)} value={date} />
           {show ? (
             <CalanderSchd
-              timeSlots={selectedTimeSlot}
+              // timeSlots={selectedTimeSlot}
               selDate={tempTS}
               locationId={locationId}
             />
@@ -206,6 +149,7 @@ export default function Calander() {
                 show={modalState.confirmCancelledBool}
                 onHide={() => dispatch({ type: "hide confirmCancelled" })}
               />
+
               <BookingChanged
                 show={modalState.bookingChangedBool}
                 onHide={() => dispatch({ type: "hide bookingChanged" })}
@@ -215,7 +159,13 @@ export default function Calander() {
                 show={modalState.bookingNotCancelledBool}
                 onHide={() => dispatch({ type: "hide bookingNotCancelled" })}
               />
-
+              <BookingDeleted
+                show={modalState.bookingDeletedBool}
+                onHide={() => dispatch({ type: "hide bookingDeleted" })}
+              />
+              {/* {modalState.bookingChangedBool && (
+                <div>BOOKING HAS BEEN CHANGED</div>
+              )} */}
               {/* <Link to='/cal-shd'>
                 <button className='main-btn'>
                   <ConfirmCode

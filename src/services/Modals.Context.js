@@ -8,6 +8,7 @@ const initialState = {
   bookingChangedBool: false,
   confirmCancelledBool: false,
   bookingNotCancelledBool: false,
+  bookingDeletedBool: false,
 };
 
 const reducer = (modalState, { type, payload }) => {
@@ -46,6 +47,7 @@ const reducer = (modalState, { type, payload }) => {
       editBookingBool: false,
     };
   } else if (type === "show bookingChanged") {
+    // console.log("SHOW BOOKING CHANGED REDUCER");
     return {
       ...modalState,
       bookingChangedBool: true,
@@ -74,6 +76,16 @@ const reducer = (modalState, { type, payload }) => {
     return {
       ...modalState,
       bookingNotCancelledBool: false,
+    };
+  } else if (type === "show bookingDeleted") {
+    return {
+      ...modalState,
+      bookingDeletedBool: true,
+    };
+  } else if (type === "hide bookingDeleted") {
+    return {
+      ...modalState,
+      bookingDeletedBool: false,
     };
   }
 };

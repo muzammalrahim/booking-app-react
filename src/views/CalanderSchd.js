@@ -11,81 +11,23 @@ import { SelectedSlotsContext } from "../services/SelectedSlots.Context";
 import { SelectedDateContext } from "../services/SelectedDate.context";
 
 export default function CalanderSchd(props) {
-  const { businessInfo, setBusinessInfo } = useContext(BusinessInfoContext);
-  const { selectedSlots, setselectedSlots } = useContext(SelectedSlotsContext);
+  const { selDate, locationId } = props;
+  console.log(selDate);
   const [showSlots, setShowSlots] = useState(false);
-  const { selectedDateContext, setSelectedDateContext } =
-    useContext(SelectedDateContext);
-  const { timeSlots, selDate, locationId } = props;
-  const apiTimeSlots = businessInfo.timeSlots;
-  const [TSArray, setTSArray] = useState([]); //time slots array in epoch
-
-  // console.log(apiTimeSlots["1"]);
-  // console.log("TimeSlots in calenderSchd");
-  const dateTemp = new Date(selDate);
-  const dayOfWeek = dateTemp.toLocaleDateString("en-US", {
-    weekday: "short",
-  });
-
-  const getTSArray = () => {
-    // console.log("---------------------");
-    // console.log(dayOfWeek);
-    switch (dayOfWeek) {
-      case "Sun": {
-        // return apiTimeSlots["1"];
-        setTSArray(apiTimeSlots["1"]);
-        break;
-      }
-      case "Mon:": {
-        // return apiTimeSlots["2"];
-        setTSArray(apiTimeSlots["2"]);
-        break;
-      }
-      case "Tue:": {
-        // return apiTimeSlots["3"];
-        setTSArray(apiTimeSlots["3"]);
-        break;
-      }
-      case "Wed:": {
-        // return apiTimeSlots["4"];
-        setTSArray(apiTimeSlots["4"]);
-        break;
-      }
-      case "Thu:": {
-        // return apiTimeSlots["5"];
-        setTSArray(apiTimeSlots["5"]);
-        break;
-      }
-      case "Fri:": {
-        // return apiTimeSlots["6"];
-        setTSArray(apiTimeSlots["6"]);
-        break;
-      }
-      case "Sat:": {
-        // return apiTimeSlots["7"];
-        setTSArray(apiTimeSlots["7"]);
-        break;
-      }
-    }
-  };
-  // useEffect(() => {}, []);
-
-  // console.log(dayOfWeek); // Output: "Wednesday"
-  // console.log(selDate);
-  const [hours, setHours] = useState(0);
-  const [modalShow, setModalShow] = React.useState(false);
-  const [timesArr, setTimesArr] = useState({});
+  const [modalShow, setModalShow] = useState(false);
   const [selectedArr, setSelectedArr] = useState({});
-  const [date, setDate] = useState();
-  const [showText, setShowText] = useState(false);
-  const onClick = () => setShowText(true);
-  const [active, setActive] = useState(null);
-  // const [availibity, setAvailibity] = useState();
-  var availibity;
 
+  const { businessInfo, setBusinessInfo } = useContext(BusinessInfoContext);
+  /////////////////
+  var timeSlots;
+  var slotsOfDay;
+  var availibity;
+  const [timeObjects, setTimeObjects] = useState([]);
+  // const [slotsOfDay, setSlotsOfDay] = useState();
   const API_URL = process.env.REACT_APP_PUBLIC_URL;
   const getData = async (date) => {
     console.log("GETDATA");
+    console.log(timeSlots);
     const res = await fetch(
       API_URL + "reservation/getExistingReservationsForDate",
       {
@@ -103,153 +45,104 @@ export default function CalanderSchd(props) {
     if (res.status === 422 || !data) {
       console.log("Fetch Failed");
     } else if (res.status === 200) {
-      // setAvailibity(data);
       availibity = data;
-      // console.log("THENN");
-      console.log(data);
-      createSlots(timeSlots);
-      getTSArray();
-      // console.log(response.data);
+      render();
 
-      console.log(res.status);
+      console.log(availibity);
       console.log("Fetch Successful");
       return res.data;
-      // navigate("/Login");
     }
-    // navigate("/Login");
-    // console.log(user);
   };
 
-  // const getData = async (date) => {
-  //   console.log(locationId);
-  //   console.log("GET DATA Calender Schd");
-  //   axios
-  //     .post(API_URL + "reservation/getExistingReservationsForDate", {
-  //       locationId: locationId,
-  //       date: date,
-  //     })
-  //     .then((response) => {
-  //       setAvailibity(response.data);
-  //       console.log("THENN");
-  //       createSlots(timeSlots);
-  //       getTSArray();
-  //       // console.log(response.data);
-  //       return response.data;
-  //     })
-  //     .catch((error) => {
-  //       // console.log(error.response);
-  //       console.log("CATCH");
-  //       console.log(error.message);
-  //       return error.message;
-  //     });
-  // };
-
-  function createSlots(startTimes) {
-    const slots = [];
-    // console.log("closedARR");
-    // console.log(startTimes);
-    // console.log(Object.keys(availibity.unAvailability));
-    // console.log(Object.keys(availibity?.unAvailability));
-    const unAvailable = Object.keys(availibity?.unAvailability);
-
-    // console.log("TSArray");
-    var courtIds = [];
-    // console.log(TSArray);
-    for (let i = 0; i < TSArray.length; i++) {
-      if (TSArray.includes(unAvailable[i])) {
-        courtIds.push(i + 1);
-      }
-    }
-    // console.log("SLOT SET 1");
-    // console.log("Line 122");
-    // console.log(courtIds);
-    const closedArr = availibity.closedCourts.map((obj) => {
-      return Number(obj);
-    });
-
-    const unAvailableTS = Object.keys(availibity.unAvailability).map((obj) => {
-      const epochTime = obj;
-      const date = new Date(epochTime * 1000);
-      const timeString = date.toLocaleTimeString([], {
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-      });
-      const ampm = date
-        .toLocaleTimeString([], { hour: "numeric", hour12: true })
-        .split(" ")[1];
-      const formattedTime = `${timeString}`;
-      return formattedTime;
-    });
-    // console.log(unAvailableTS);
-    // console.log(startTimes);
-    for (let i = 0; i < startTimes.length; i++) {
-      // console.log(startTimes);
-      // console.log(i + 1);
-      const closed = closedArr.includes((i + 1).toString());
-      var active = true;
-      if (unAvailableTS.includes(startTimes[i])) {
-        // console.log("isActiveBlock");
-        active = false;
-      }
-      const startTime = startTimes[i];
-      const endTime = new Date(
-        new Date(`01/01/2000 ${startTime}`).getTime() + 90 * 60000
-      ).toLocaleTimeString([], {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      });
-      slots.push({
-        start: startTime,
-        end: endTime,
-        closed: closed,
-        is_active: active,
-        selected: false,
-      });
-      // console.log("SLOT SET");
-      setTimesArr(slots);
-      setShowSlots(true);
-      // console.log("Show Slots");
-      // console.log(showSlots);
-    }
-    // console.log(timesArr);
-    return slots;
-  }
   const setActiveHandler = (data) => {
-    let temp = timesArr.map((obj) => {
+    let temp = timeObjects.map((obj) => {
       obj.selected = false;
       return obj;
     });
-    // console.log(temp);
-    const index = timesArr.indexOf(data);
+    const index = timeObjects.indexOf(data);
     let tempObj = data;
     tempObj.selected = !tempObj.selected;
     temp[index] = tempObj;
-    setTimesArr(temp);
+    setTimeObjects(temp);
   };
 
-  const handleSelectedSlots = () => {
-    const tempArr = timesArr.filter((obj) => {
-      return obj.selected === true;
+  const render = () => {
+    timeSlots = businessInfo?.timeSlots;
+    console.log(timeSlots);
+    const date = new Date(selDate);
+    const weekdayNames = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const dayOfWeek = weekdayNames[date.getDay()];
+    switch (dayOfWeek) {
+      case "Sunday": {
+        slotsOfDay = timeSlots["1"];
+        break;
+      }
+      case "Monday": {
+        slotsOfDay = timeSlots["2"];
+        break;
+      }
+      case "Tuesday": {
+        slotsOfDay = timeSlots["3"];
+        break;
+      }
+      case "Wednesday": {
+        slotsOfDay = timeSlots["4"];
+        break;
+      }
+      case "Thursday": {
+        slotsOfDay = timeSlots["5"];
+        break;
+      }
+      case "Friday": {
+        slotsOfDay = timeSlots["6"];
+        break;
+      }
+      case "Saturday": {
+        slotsOfDay = timeSlots["7"];
+        break;
+      }
+    }
+    slotsOfDay = JSON.parse(slotsOfDay);
+    const unAvailable = Object.keys(availibity?.unAvailability);
+    const unAvailableVar = unAvailable.map((val) => {
+      if (val > 0) {
+        return val - 86400;
+      } else return Number(val);
     });
-    setSelectedArr(tempArr);
-    // const hrs = (selectedArr.length * 90) / 60;
-    // setHours(hrs);
+    console.log(unAvailableVar);
+    console.log(slotsOfDay);
+    var tempTimesArr = [];
+    for (let i = 0; i < slotsOfDay.length; i++) {
+      const timestamp = slotsOfDay[i];
+      const startDate = new Date(timestamp * 1000); // Convert timestamp to milliseconds
+      const endDate = new Date((timestamp + 5400) * 1000); // Add 90 minutes (5400 seconds) to the start time
+      const startTime = startDate.toISOString().substr(11, 5); // Extract start time in format "HH:mm"
+      const endTime = endDate.toISOString().substr(11, 5); // Extract end time in format "HH:mm"
+      var is_active = true;
+      var selected = false;
+
+      if (unAvailableVar.includes(timestamp)) {
+        console.log("IF TRUE");
+        is_active = false;
+      }
+      tempTimesArr.push({
+        start: startTime,
+        end: endTime,
+        selected: selected,
+        is_active: is_active,
+      });
+    }
+    setTimeObjects(tempTimesArr);
+    setShowSlots(true);
   };
-
-  useEffect(() => {
-    // console.log("Calender - Schd");
-    // console.log(selDate);
-    const momentObj = moment.utc(selDate, "M/D/YYYY");
-    const isoString = momentObj.toISOString();
-    const formattedString = momentObj.format("YYYY-MM-DDTHH:mm:ssZ");
-    setDate(formattedString);
-    getData(formattedString);
-  }, [selectedDateContext]);
-
-  const [show, setShow] = useState(false);
-
   function convertMinutesToHHMM() {
     let minutes = businessInfo.location.duration;
     let hours = Math.floor(minutes / 60);
@@ -258,6 +151,18 @@ export default function CalanderSchd(props) {
     mins = mins < 10 ? `0${mins}` : mins;
     return `${hours}:${mins}`;
   }
+  const handleSelectedSlots = () => {
+    const tempArr = timeObjects.filter((obj) => {
+      return obj.selected === true;
+    });
+    setSelectedArr(tempArr);
+  };
+
+  useEffect(() => {
+    setShowSlots(false);
+    getData(selDate);
+  }, [selDate]);
+
   if (businessInfo) {
     return (
       <div className='cal-view-main'>
@@ -270,7 +175,7 @@ export default function CalanderSchd(props) {
                   {/* -----------Time Schedule div---------- */}
                   <div className='time-schd pb-5'>
                     {showSlots ? (
-                      timesArr.map((data) => {
+                      timeObjects?.map((data) => {
                         if (data.is_active === true) {
                           return (
                             <SlotBox
@@ -285,7 +190,7 @@ export default function CalanderSchd(props) {
                           return (
                             <div className='gray-sch sch-tab'>
                               <span>
-                                {data.start} - {data.end}
+                                {data?.start} - {data?.end}
                               </span>
                             </div>
                           );
@@ -294,28 +199,6 @@ export default function CalanderSchd(props) {
                     ) : (
                       <p>Loading Data...</p>
                     )}
-
-                    {/* <div className='gray-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='slected-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='black-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='black-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='black-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='black-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div>
-                            <div className='gray-sch sch-tab'>
-                                <span>09:00 - 10:00</span>
-                            </div> */}
                   </div>
                   {/* ----------Time Schedule div-------- */}
 
@@ -340,13 +223,11 @@ export default function CalanderSchd(props) {
                     <span
                       onClick={() => {
                         handleSelectedSlots();
-                        // console.log(selectedArr);
                         setModalShow(true);
                       }}
                     >
                       <button className='main-btn'>Next</button>
                     </span>
-                    {/* UNCOMMENT THIS BLOCK */}
                     <BookAppointment
                       show={modalShow}
                       props={{ date: selDate, slots: selectedArr }}

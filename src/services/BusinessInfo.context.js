@@ -8,7 +8,8 @@ export const BusinessInfoContext = createContext({
 
 export const BusinessInfoProvider = ({ children }) => {
   const [businessInfo, setBusinessInfo] = useState({});
-  const value = { businessInfo, setBusinessInfo };
+  const [testSlots, settestSlots] = useState({});
+  const value = { businessInfo, setBusinessInfo, testSlots, settestSlots };
   return (
     <BusinessInfoContext.Provider value={value}>
       {children}

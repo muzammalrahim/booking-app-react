@@ -11,61 +11,10 @@ export default function BookAppointment(props) {
   const { businessInfo, setBusinessInfo } = useContext(BusinessInfoContext);
   const { timeStringContext, setTimeStringContext } =
     useContext(TimeStringContext);
-  // const handleSlots = () => {
-  //   console.log("Handle SLots");
-  //   const tempSelected = props?.props?.slots.filter((obj) => {
-  //     return obj.selected;
-  //   });
-  //   setSelectedSlots(tempSelected);
-  //   console.log(selectedSlots);
-
-  //   console.log(selectedSlots);
-  // };
   useEffect(() => {
     setSelectedSlots(props.props.slots);
-    console.log(props.props);
-    console.log(businessInfo);
-    console.log("Selected Slots in book Appointment Modal");
-    console.log(props.props.slots);
     setTimeStringContext(props.props.slots[0]);
-    console.log(timeStringContext);
-    // handleSlots();
-    // const tempSelected = props?.props?.slots.filter((obj) => {
-    //   return obj.selected;
-    // });
-    // setSelectedSlots(tempSelected);
-    // console.log(selectedSlots);
   }, [props]);
-
-  const [showText, setShowText] = useState(false);
-  const onClick = () => setShowText(true);
-
-  // const times = [
-  //   {
-  //     slot_time: "10:00 11:00",
-  //     is_active: false,
-  //   },
-  //   {
-  //     slot_time: "11:00 12:00",
-  //     is_active: false,
-  //   },
-  //   {
-  //     slot_time: "12:00 13:00",
-  //     is_active: false,
-  //   },
-  //   {
-  //     slot_time: "10:00 11:00",
-  //     is_active: true,
-  //   },
-  //   {
-  //     slot_time: "11:00 12:00",
-  //     is_active: true,
-  //   },
-  //   {
-  //     slot_time: "12:00 13:00",
-  //     is_active: true,
-  //   },
-  // ];
 
   const [show, setShow] = useState(false);
 
@@ -101,7 +50,7 @@ export default function BookAppointment(props) {
                 selectedSlots?.map((obj) => {
                   return (
                     <>
-                      {obj.start}- {obj.end} {" , "}
+                      {obj.start} - {obj.end}
                     </>
                   );
                 })}
@@ -126,21 +75,3 @@ export default function BookAppointment(props) {
     </Modal>
   );
 }
-
-// export default function App(props) {
-//   const [modalShow, setModalShow] = React.useState(false);
-
-//   return (
-//     <>
-//       <span onClick={() => setModalShow(true)}>Next</span>
-
-//       <BookAppointment
-//         show={modalShow}
-//         // props={props}
-//         onHide={() => setModalShow(false)}
-//       />
-//     </>
-//   );
-// }
-
-// render(<App />);
