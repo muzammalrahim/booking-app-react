@@ -17,13 +17,15 @@ export default function AppForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-
+  const [btnText, setBtnText] = useState("Book appointment");
   const { businessInfo, setBusinessInfo } = useContext(BusinessInfoContext);
   const initialDate = selectedDateContext;
+  // console.log(selectedDateContext);
   const formattedDate = moment(initialDate).format("M/D/YYYY");
   const momentObj = moment.utc(formattedDate, "M/D/YYYY");
   const isoString = momentObj.toISOString();
   var formattedString = momentObj.format("YYYY-MM-DDTHH:mm:ssZ");
+  // console.log(formattedString);
   const [startSec, setStartSec] = useState();
   const [endSec, setEndSec] = useState();
   // setPayloadDate(formattedDate);
@@ -53,14 +55,20 @@ export default function AppForm() {
 
   const API_URL = process.env.REACT_APP_PUBLIC_URL;
   const bookReservation = async (payload) => {
+    localStorage.setItem("payload", JSON.stringify(payload));
+    setBtnText("Verifing...");
     axios
       .post(API_URL + "reservation/bookReservation", { ...payload })
       .then((response) => {
         // setBusinessInfo(response.data);
         // console.log(response.data.business.LocationId);
-        window.location.href = response.data.redirect_url;
         console.log(response.data);
-        return response.data;
+        setBtnText("Book appointment");
+        console.log(response.data);
+        localStorage.setItem("reservationId", response.data.id);
+        localStorage.setItem("redirect_url", response.data.redirect_url);
+        window.location.href = response.data.redirect_url;
+        // return response.data;
       })
       .catch((error) => {
         console.log(error.response.status);
@@ -79,7 +87,6 @@ export default function AppForm() {
       businessId: "mAqm6LjvFLUvMOU4pylE5qHcgPH3", // Hard Coded for Now
       locationId: businessInfo.business.LocationId,
       courtId: 1,
-
       date: formattedString,
       startTime: startSecVar,
       endTime: endSecVar,
@@ -90,13 +97,12 @@ export default function AppForm() {
       businessLocation: businessInfo.business.location,
       customerName: firstName + " " + lastName,
       customerEmail: email,
-      successUrl: "https://pay.expresspay.sa/",
-      failUrl: "https://pay.expresspay.sa/",
+      successUrl: "https://bookingapp-react.netlify.app/success",
+      failUrl: "https://bookingapp-react.netlify.app/failure",
     };
     bookReservation(payload);
     console.log(payload);
   };
-
   return (
     <Form onSubmit={handleBooking} className='form-main'>
       <Form.Group className='mb-3'>
@@ -108,6 +114,7 @@ export default function AppForm() {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               placeholder='Enter first name'
+              required
             />
           </div>
           <div>
@@ -117,6 +124,7 @@ export default function AppForm() {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               placeholder='Enter last name'
+              required
             />
           </div>
         </div>
@@ -131,6 +139,7 @@ export default function AppForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder='Enter email'
+              required
             />
           </div>
           <div>
@@ -178,7 +187,7 @@ export default function AppForm() {
     */}
       <div className='mt-4'>
         <button className='main-btn' type='submit'>
-          Book appointment
+          {btnText}
         </button>
         <button className='outline-btn mt-2'>Cancel</button>
       </div>

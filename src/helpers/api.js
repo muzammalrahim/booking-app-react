@@ -1,34 +1,58 @@
-// // import axios from "../config/axiosConfig";
-// import axios from "axios";
-// import { useContext } from "react";
-// import { BusinessInfoContext } from "../services/BusinessInfo.context";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-// const API_URL = process.env.REACT_APP_PUBLIC_URL;
+export const useGetApi = (url, headers) => {
+  const API_URL = process.env.REACT_APP_PUBLIC_URL;
 
-// export async function getBusinessInfo(endpoint, data) {
-//   //   const { businessInfo, setBusinessInfo } = useContext(BusinessInfoContext);
-//   axios
-//     .post(API_URL + endpoint, data)
-//     .then((response) => {
-//       //   console.log(response.data);
-//       //   setBusinessInfo(response.data);
-//       return response.data;
-//     })
-//     .catch((error) => {
-//       //   if (error.response) {
-//       //     //response status is an error code
-//       //     console.log(error.response.status);
-//       //   } else if (error.request) {
-//       //     //response not received though the request was sent
-//       //     console.log(error.request);
-//       //   } else {
-//       //     //an error occurred when setting up the request
-//       //     console.log(error.message);
-//       //     return error.message;
-//       //   }
-//       console.log(error.response.status);
-//       //   console.log(error.request);
-//       console.log(error.message);
-//       return error.message;
-//     });
-// }
+  const [data, setData] = useState([]);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  /////////// Making Headers ////////////
+  const makeHeaders = () => {
+    if (headers) {
+      return { headers: { ...headers } };
+    }
+    return {};
+  };
+  ///////////////////////////////
+
+  const fetchData = async (url, headers, payload) => {
+    console.log(url, payload);
+    try {
+      setIsLoading(true);
+      const { status, data } = await axios.post(
+        "https://us-central1-shadebusiness-c91d3.cloudfunctions.net/payment/" +
+          url,
+        {
+          ...makeHeaders(),
+          ...payload,
+        }
+      );
+      if (status === 200) {
+        console.log("Success");
+        setData(data);
+        setError("");
+        setIsLoading(false);
+      }
+    } catch (e) {
+      console.log("Failed");
+      setData([]);
+      setError(e.message);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData(url, headers);
+  }, [url]);
+
+  const getDataWithPayload = async (payload) => {
+    fetchData(url, headers, payload);
+  };
+
+  /////////////////// Returning Data, Error, Loading State
+  return { data, error, isLoading, getDataWithPayload };
+};
+
+export default useGetApi;

@@ -1,23 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ModalContext } from "../services/Modals.Context";
-
 // libraries
 import Modal from "react-bootstrap/Modal";
 
 // Local Imports
 import EditBooking from "../modals/EditBooking";
-
+import { ChangeBookingContext } from "../services/ChangeBooking.context";
 // Images
 import CheckTick from "../assets/images/circle-check-bg.png";
-
 export default function ConfirmChoices(props) {
   // Not Cancelled Modal
   const { modalState, dispatch } = useContext(ModalContext);
+  // const {}
+  const { changeBooking, setChangeBooking } = useContext(ChangeBookingContext);
 
   const [modalShow, setModalShow] = React.useState(false);
 
   // Edit Booking Modal
   const [bookingShow, setBookingShow] = React.useState(false);
+
+  const [cancelBtn, setCancelBtn] = useState("Cancel booking");
 
   return (
     <div className='done-appt'>
@@ -56,6 +58,7 @@ export default function ConfirmChoices(props) {
                   onClick={() => {
                     dispatch({ type: "show confirmCancelled" });
                     dispatch({ type: "hide confirmChoices" });
+                    // cancelReservation();
                   }}
                 >
                   Cancel booking

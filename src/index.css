@@ -160,6 +160,16 @@ h5 {
   width: 40% !important;
 }
 
+.time-schd-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 auto;
+  width: 100% !important;
+}
+
 .sch-tab {
   width: 100px;
   height: 38px;
@@ -202,6 +212,15 @@ h5 {
 }
 .slected-sch {
   background: #5bc0cc;
+}
+
+.booked-sch {
+  background: #6b6b6b;
+  /* color: white; */
+}
+
+.booked-sch span {
+  color: #ffffff;
 }
 .slected-sch span {
   color: #ffffff;
@@ -261,20 +280,33 @@ h5 {
   align-items: center;
   text-align: center;
 }
+
+.otp-confirm-block input {
+  width: 54px;
+  height: 54px;
+  background: #ffffff;
+  border: 1px solid #5bc0cc;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 /* ==================Confrim Modal End================== */
 
 /* ==================Horizonatl Calander Modal Start=================== */
-.weekly-calander .react-calendar{
+.weekly-calander .react-calendar {
   width: unset !important;
 }
-.weekly-calander span.react-calendar__navigation__label__labelText.react-calendar__navigation__label__labelText--from{
+.weekly-calander
+  span.react-calendar__navigation__label__labelText.react-calendar__navigation__label__labelText--from {
   font-size: 18px !important;
   font-weight: 600 !important;
 }
 .modal-para-edit {
   font-weight: 600;
   font-size: 16px;
-  color: #1E1E1E;
+  color: #1e1e1e;
   text-align: center;
 }
 /* ==================Horizonatl Calander Modal End=================== */
@@ -432,7 +464,7 @@ button.react-calendar__tile.react-calendar__month-view__days__day {
 .react-calendar__month-view__days {
   gap: 25px;
 }
-.react-calendar__month-view__days{
+.react-calendar__month-view__days {
   justify-content: space-between !important;
 }
 /* ====================Calander Settings End=================== */
@@ -487,5 +519,13 @@ button.react-calendar__tile.react-calendar__month-view__days__day {
     width: 100% !important;
   } */
   button.react-calendar__tile.react-calendar__month-view__days__day {
+  }
+
+  .otp-confirm-block input {
+    width: 40px;
+    height: 40px;
+  }
+  .parallel-btns {
+    gap: 50px;
   }
 }

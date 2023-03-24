@@ -2,14 +2,17 @@ import React, { useRef } from "react";
 import { ModalContext } from "../services/Modals.Context";
 import { useContext, useState } from "react";
 import axios from "axios";
+import { ChangeBookingContext } from "../services/ChangeBooking.context";
 // libraries
 import Modal from "react-bootstrap/Modal";
 const API_URL = process.env.REACT_APP_PUBLIC_URL;
-
 // Local Imports
 
 export default function ConfirmCode(props) {
+  const { changeBooking, setChangeBooking, changedBooking, setChangedBooking } =
+    useContext(ChangeBookingContext);
   // Confirm Choices Modal
+  const [reserveID, setReserveID] = useState("");
   const [apiCall, setApiCall] = useState(false);
   const [error, setError] = useState(false);
   const { modalState, dispatch } = useContext(ModalContext);
@@ -38,7 +41,7 @@ export default function ConfirmCode(props) {
     setOtp(newOtp);
 
     // Call a function when all 6 digits are entered
-    if (newOtp.length === 6) {
+    if (newOtp.length === 6 && reserveID != "") {
       handleOtpConfirmation(newOtp);
     }
   }
@@ -55,13 +58,16 @@ export default function ConfirmCode(props) {
     setError(false);
     console.log(otp);
     axios
-      .post(API_URL + "reservation/sendOTPtoEmail", {
-        email: "saqibsdesk@gmail.com", // change email here
+      .post(API_URL + "reservation/verifyOTP", {
+        // id: localStorage.getItem("reservationId"), // change email here
+        id: reserveID,
         otp: otp,
       })
       .then((response) => {
         console.log(response.status);
         setApiCall(false);
+        localStorage.setItem("reservationId", reserveID);
+        setChangeBooking(response.data);
         dispatch({ type: "hide confirmCode" });
         dispatch({ type: "show confirmChoices" });
         setOtp("");
@@ -77,6 +83,9 @@ export default function ConfirmCode(props) {
       });
   };
 
+  const handleReserveID = (e) => {
+    setReserveID(e.target.value);
+  };
   return (
     <div className='done-appt'>
       <Modal
@@ -103,10 +112,22 @@ export default function ConfirmCode(props) {
             </p>
             <p className='modal-gray-text'>Please enter this code.</p>
           </div>
-
+          <div className='mb-4'>
+            <div class='form-group'>
+              <label htmlFor='ReservationID'>Reservation ID</label>
+              <input
+                type='email'
+                class='form-control'
+                id='ReservationID'
+                placeholder='Enter Reservation ID'
+                value={reserveID}
+                onChange={(e) => handleReserveID(e)}
+              />
+            </div>
+          </div>
           <div className='confirm-code-div mb-4'>
             {inputRefs.map((ref, index) => (
-              <div className='confirm-block' key={index}>
+              <div className='otp-confirm-block' key={index}>
                 <input
                   type='text'
                   placeholder='0'
@@ -135,6 +156,7 @@ export default function ConfirmCode(props) {
               <input type='text' placeholder='0' />
             </div>{" "} */}
           </div>
+
           <div className='mb-4'>
             {/* <span
               onClick={() => {

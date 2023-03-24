@@ -1,0 +1,102 @@
+import React, { useEffect, useContext, useState } from "react";
+import { ModalContext } from "../../services/Modals.Context";
+import AppointmentCancel from "../../modals/AppointmentCancel";
+// import BookingChanged from "../../modals/BookingChanged";
+// import axios from "axios";
+// import Header from "../../components/Header";
+import Header from "../../components/Header";
+import HeroImg from "../../components/HeroImg";
+// import AppointmentDone from "../../modals/AppointmentDone";
+// libraries
+import Calendar from "react-calendar";
+
+// import EditBooking from "../../modals/EditBooking";
+// import ConfirmCancelled from "../../modals/ConfirmCancelled";
+// import BookingNotCancelled from "../../modals/BookingNotCancelled";
+
+// // Local Imports
+// import CalanderSchd from "../../views/CalanderSchd";
+// import WeeklyCalander from "../../modals/WeeklyCalander";
+// import ConfirmCode from "../../modals/ConfirmCode";
+// import ConfirmChoices from "../../modals/ConfirmChoices";
+
+// import { BusinessInfoContext } from "../../services/BusinessInfo.context";
+// import { SelectedDateContext } from "../../services/SelectedDate.context";
+
+// import EclipseBG from "../assets/images/eclipse-bottom.png";
+// import Header from "../Header";
+const FailurePage = () => {
+  // confirm modal
+  // const { modalState, dispatch } = useContext(ModalContext);
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(true);
+  const CalenderView = () => {
+    console.log("Show", show);
+    return (
+      <div className='pt-3 pos-area'>
+        <div className='container'>
+          <div className='calendar-container'>
+            <Calendar onChange={(val) => setDate(val)} value={date} />
+          </div>
+          <div className='showPlans'>
+            <div className='bottom-div pt-4'>
+              {/* <h2>Your plans changed?</h2>
+            <p className='bot-para'>
+              If you need to make changes to your appointment or you want to
+              cancel it please press the button below
+            </p> */}
+
+              <div className='btn-div'>
+                {/* <span className='modal-btn'>
+                <span
+                  className='main-btn'
+                  onClick={() => {
+                    // props.closeModal();
+                    // setModalShow(true);
+                    // sendOTP();
+                    dispatch({ type: "show confirmCode" });
+                  }}
+                >
+                  Change booking
+                </span>
+
+                <ConfirmCode
+                  // show={modalShow}
+                  show={modalState.confirmCodeBool}
+                  onHide={() => dispatch({ type: "hide confirmCode" })}
+                />
+              </span> */}
+                <AppointmentCancel
+                  // show={modalShow}
+                  show={show}
+                  onHide={() => setShow(false)}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // const [date, setDate] = useState(new Date());
+  return (
+    <>
+      <div className='cal-view-main bottom-bg'>
+        <Header />
+        <HeroImg />
+        {/* Business INFO
+      {businessInfo?.business?.companyName} */}
+        <div className='cal-inner pt-5'>
+          <div className='container'>
+            <h2>Book now</h2>
+            <CalenderView />
+          </div>
+        </div>
+      </div>
+      ;
+    </>
+  );
+};
+
+export default FailurePage;

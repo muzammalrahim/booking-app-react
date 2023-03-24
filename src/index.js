@@ -8,6 +8,8 @@ import { BusinessInfoProvider } from "./services/BusinessInfo.context";
 import { SelectedDateProvider } from "./services/SelectedDate.context";
 import { SelectedSlotsProvider } from "./services/SelectedSlots.Context";
 import { TimeStringProvider } from "./services/TimeString.context";
+import { ChangeBookingProvider } from "./services/ChangeBooking.context";
+import { EditBookingProvider } from "./services/EditBookingContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -16,7 +18,11 @@ root.render(
         <SelectedSlotsProvider>
           <TimeStringProvider>
             <ModalProvider>
-              <App />
+              <ChangeBookingProvider>
+                <EditBookingProvider>
+                  <App />
+                </EditBookingProvider>
+              </ChangeBookingProvider>
             </ModalProvider>
           </TimeStringProvider>
         </SelectedSlotsProvider>
