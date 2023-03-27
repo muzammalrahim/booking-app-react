@@ -83,9 +83,9 @@ export default function CalanderView() {
           // show={modalShow}
           show={show}
           onHide={() => {
-            localStorage.removeItem("payload");
-            localStorage.removeItem("redirect_url");
-            localStorage.removeItem("reservationId");
+            // localStorage.removeItem("payload");
+            // localStorage.removeItem("redirect_url");
+            // localStorage.removeItem("reservationId");
             setShow(false);
           }}
         />
